@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tienda Verde{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'tiendaVerde/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tiendaVerde/css/styles.css' %}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 id="nombreEmpresa" class="text-center">Tienda Verde</h1>
+                <nav id="barraNavegacion">
+                    <ul class="nav d-flex justify-content-center">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'catalogo_cliente' %}">Ver catálogo de Cliente</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'catalogo_publico' %}">Catálogo Público</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'formulario' %}">Solicitud</a>
+                        </li>
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'registrarse' %}">Registrarse</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <span class="nav-link">Hola, {{ user.username }}!</span>
+                            </li>
+                            <li class="nav-item">
+                                <form action="{% url 'cerrarSesion' %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="nav-link btn btn-link">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'inicioSesion' %}">Iniciar sesión</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Mensaje de bienvenida -->
+        <div class="row">
+            <div class="col">
+                {% if mensaje %}
+                    <div class="alert alert-info text-center">
+                        {{ mensaje }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="rowParrafo" class="row">
+            <div class="col">
+                <div class="descripcion-contenedor">
+                    <p id="descripcion">
+                        Una empresa de reciclaje se dedica a recolectar y procesar materiales desechados, como papel, plástico, vidrio y metales, para transformarlos en nuevos productos. Su objetivo es reducir los residuos, minimizar el impacto ambiental y fomentar la sostenibilidad mediante la reutilización de recursos y la promoción de una economía circular.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="imagenes" class="row">
+            <div class="col-12 col-sm-4 gallery-item">
+                <img src="{% static 'tiendaVerde/imagenes/1.jpg' %}" class="img-fluid" alt="Imagen 1">
+            </div>
+            <div class="col-12 col-sm-4 gallery-item">
+                <img src="{% static 'tiendaVerde/imagenes/estuche-escolar-con-botellas-de-plastico.jpg' %}" class="img-fluid" alt="Imagen 2">
+            </div>
+            <div class="col-12 col-sm-4 gallery-item">
+                <img src="{% static 'tiendaVerde/imagenes/ff0_900.jpg' %}" class="img-fluid" alt="Imagen 3">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-4 gallery-item">
+                <img src="{% static 'tiendaVerde/imagenes/hqdefault.jpg' %}" class="img-fluid" alt="Imagen 4">
+            </div>
+            <div class="col-12 col-sm-4 gallery-item">
+                <img src="{% static 'tiendaVerde/imagenes/plasticos-botellas-envases.jpg' %}" class="img-fluid" alt="Imagen 5">
+            </div>
+            <div class="col-12 col-sm-4 gallery-item">
+                <img src="{% static 'tiendaVerde/imagenes/sddefault.jpg' %}" class="img-fluid" alt="Imagen 6">
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'tiendaVerde/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Cliente</title>
+    <link rel="stylesheet" href="{% static 'tiendaVerde/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tiendaVerde/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Catálogo</h1>
+
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'catalogo_cliente' %}">Catálogo</a>
+            <a class="navbar-brand" href="#" onclick="abrirCarrito(); return false;">
+                Carrito ({{ productos_en_carrito.count }})
+            </a>
+        </nav>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row">
+            {% for producto in productos %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text">Precio: ${{ producto.precio }}</p>
+                            <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function abrirCarrito() {
+            var url = "{% url 'ver_carrito' %}"; // Generar la URL usando Django
+            window.open(url, '_blank'); // Abrir en una nueva pestaña
+        }
+    </script>
+
+    <script src="{% static 'tiendaVerde/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

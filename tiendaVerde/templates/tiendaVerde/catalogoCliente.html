@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'tiendaVerde/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tiendaVerde/css/styles.css' %}">
+    <title>Catalógo - Tienda Verde</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <h1 id="nombreEmpresa">TIENDA VERDE</h1>
+
+            <!-- Menú de navegación -->
+            <nav class="navbar navbar-expand-lg" id="barraNavegacion">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Menú</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'inicio' %}">Inicio</a> <!-- Enlace al índice -->
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ver_carrito' %}" target="_blank">Carrito ({{ carrito_total }})</a> <!-- Mostrar total de productos en el carrito -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Sección de productos -->
+            <div id="imagenes" class="row row-cols-1 row-cols-md-5 g-4">
+                {% for producto in productos %}
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text">{{ producto.descripcion }}</p>
+                            <p class="card-price">Precio: ${{ producto.precio }}</p>
+                            <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Añadir al Carrito</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No hay productos disponibles.</p>
+                {% endfor %}
+            </div>
+
+            <div id="final" class="mt-5">
+                <h2>Fin de la Página</h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

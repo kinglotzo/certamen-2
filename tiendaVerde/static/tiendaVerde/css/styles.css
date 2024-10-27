@@ -1,0 +1,79 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+.container-fluid {
+    padding: 0; 
+    width: 100%;
+}
+#nombreEmpresa{
+    text-align: center;
+    background-color: #2E7D32;
+    color: white;
+    margin-bottom: 0;
+}
+#barraNavegacion{
+   background-color: #7CB342; 
+   margin-bottom: 0;
+
+}
+@media (max-width: 768px) {
+    #barraNavegacion ul {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+    #barraNavegacion .nav-item {
+        border-top: 1px solid #ddd;
+        padding: 8px 0;
+    }
+}
+#descripcion{
+    font-size: 20px;
+}
+.descripcion-contenedor {
+    max-width: 1400px; 
+    margin: 0 auto; 
+    padding: 20px; 
+}
+#rowParrafo{
+    background-color: #ccffcc;
+}
+#imagenes{
+    background-color: #dffaf5;
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+.gallery-item {
+    margin-bottom: 15px; /* Espaciado entre las filas de imágenes */
+}
+#catalogo{
+    background-color: #2E7D32;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.card-body {
+    flex: 1;
+}
+#ingresarDatos{
+    font-size: 20px;
+}
+.form-control-custom {
+    font-size: 0.855rem; 
+    padding: 0.25rem; 
+    margin-bottom: 3rem; 
+  }
+  
+  .form-select-custom {
+    font-size: 0.855rem; 
+    padding: 0.25rem; 
+    margin-bottom: 3rem; 
+  }
